@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+    environment:
+      - FLASK_ENV=production
+      - FLASK_DEBUG=false
+    networks:
+      - app-network
+    restart: unless-stopped
+    container_name: flask-backend
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - BACKEND_URL=http://flask-backend:5001
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    restart: unless-stopped
+    container_name: express-frontend
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullstack Form Application</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>User Information Form</h1>
+        
+        <form action="/submit" method="POST" class="form">
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" min="1" max="120" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="hobby">Favorite Hobby:</label>
+                <select id="hobby" name="hobby" required>
+                    <option value="">Select a hobby</option>
+                    <option value="reading">Reading</option>
+                    <option value="sports">Sports</option>
+                    <option value="music">Music</option>
+                    <option value="travel">Travel</option>
+                    <option value="cooking">Cooking</option>
+                    <option value="gaming">Gaming</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+        
+        <% if (result) { %>
+            <div class="result success">
+                <h2>Form Processed Successfully!</h2>
+                <p><strong>Message:</strong> <%= result.message %></p>
+                <p><strong>Processed Data:</strong></p>
+                <ul>
+                    <li><strong>Name:</strong> <%= result.data.name %></li>
+                    <li><strong>Email:</strong> <%= result.data.email %></li>
+                    <li><strong>Age:</strong> <%= result.data.age %></li>
+                    <li><strong>City:</strong> <%= result.data.city %></li>
+                    <li><strong>Hobby:</strong> <%= result.data.hobby %></li>
+                </ul>
+                <p><strong>Processing Time:</strong> <%= result.timestamp %></p>
+            </div>
+        <% } %>
+        
+        <% if (error) { %>
+            <div class="result error">
+                <h2>Error</h2>
+                <p><%= error %></p>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>
